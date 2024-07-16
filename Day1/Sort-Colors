@@ -1,0 +1,29 @@
+class Solution {
+public:
+    void sortColors(vector<int>& nums) {
+        int e=nums.size()-1 , s=0 ,i=0;
+        while(i<=e){
+            if(nums[i]==0){
+                swap(nums[s] , nums[i]);
+                s++;
+                i++;
+            }
+            else if(nums[i]==2){
+                swap(nums[e],nums[i]);
+                e--;
+            }
+            else{
+                i++;
+            }
+        }
+        for(auto &p : nums){
+            cout<<p;
+        }
+    }
+
+    void swap(int &a , int &b){
+        int temp = a;
+        a=b;
+        b=temp;
+    }
+};

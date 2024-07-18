@@ -1,0 +1,55 @@
+class Solution {
+public:
+    int search(vector<int>& arr, int target) {
+        int e = arr.size()-1 , s = 0 , mid , peak_i;
+    for(mid = s+(e-s)/2 ; s<=e ; mid = s+(e-s)/2){
+        if(s==e && ( arr.size()==1 || arr.size()==2) ){
+            
+            break ;
+        }
+        if(arr[arr.size()-1] > arr[0] ){
+            mid = arr.size()-1;
+            break;
+        }
+
+        if(arr[mid]>arr[mid+1] && mid != arr.size()-1){
+            
+            break ;
+        }
+        else if(arr[mid]<arr[0]){
+            e=mid-1;
+        }
+        else{
+            s= mid+1;
+        }
+    }
+    peak_i = mid ;
+    s=0;
+
+    if(target == arr[mid]){
+        return mid ;
+    }
+    
+    e = arr.size() -1  ; 
+    if(target < arr[0]){
+        s=peak_i+1;
+        }
+    else{
+        e = peak_i;
+        }
+    
+    for(mid=s+(e-s)/2 ; s<=e ; mid = s+(e-s)/2){
+        if(target == arr[mid]){
+            return mid;
+        }
+        else if(target>arr[mid]){
+            s = mid+1 ;
+        }
+        else{
+            e = mid - 1;
+        }
+    }
+    return -1;
+    
+    }
+};

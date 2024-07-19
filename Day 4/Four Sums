@@ -1,0 +1,48 @@
+class Solution {
+public:
+    vector<vector<int>> fourSum(vector<int>& nums, int target) {
+        if(nums.size()<4){
+            return{};
+        }
+        sort(nums.begin() , nums.end());
+        vector<vector<int>> ans;
+        long long sum , sum1 ;
+        int k , l , l_k , l_l;
+        for(int i =0 ; i<nums.size()-3;i++){
+            
+            if(i > 0 && nums[i]==nums[i-1]){
+                continue ;
+            }
+            sum = target;
+            sum -= nums[i];
+            for(int j = i+1 ; j<nums.size()-2;j++){
+                
+                if(j > i+1 && nums[j]==nums[j-1]){
+                    continue ;
+                }
+                sum1 = sum;
+                sum1 -= nums[j];
+                k = j+1 , l = nums.size()-1 ;
+                while(k<l){
+                    if(nums[k]+nums[l]>sum1){
+                        l-- ;
+                    }
+                    else if(nums[k]+nums[l]<sum1){
+                        k++ ;
+                    }
+                    else{
+                        ans.push_back({nums[i],nums[j],nums[k],nums[l]});
+                        l_k = nums[k] , l_l = nums[l];
+                        while(l>k && nums[k]==l_k){
+                            k++;
+                        }
+                        while(l>k && nums[l]==l_l){
+                            l--;
+                        }
+                    }
+                }
+            }
+        }
+        return ans;
+    }
+};

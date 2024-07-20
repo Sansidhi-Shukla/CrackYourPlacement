@@ -1,1 +1,35 @@
+class Solution {
+public:
 
+    //this is recursive methid which works but gives time exceeded error
+    /* int recur(vector<int>& card, int k , int i , int j){
+        if(k<=0){
+            return 0 ;
+        }
+        int ans_l = card[j] + recur(card , k-1 , i ,j-1);
+        int ans_s = card[i] + recur(card , k-1 ,i+1 , j) ;
+        return max(ans_l , ans_s); 
+    }
+
+    int maxScore(vector<int>& cardPoints, int k) {
+        int ans=0 ;
+        ans = recur(cardPoints , k , 0 , cardPoints.size()-1 );
+        return ans ;
+    } */
+
+    //sliding window approach
+    int maxScore(vector<int>& cardPoints, int k){
+        int n = cardPoints.size();
+        int sum = 0 , max_sum=0  ;
+        //sum of first k cards ;
+        for(int i =0 ; i<k ; i++){
+            sum += cardPoints[i] ;
+        }
+        max_sum = sum ;
+        for(int l = k-1,r=n-1 ; l>=0 ; l--, r--){
+            sum = sum-cardPoints[l]+cardPoints[r];
+            max_sum = max(max_sum,sum);
+        }
+        return max_sum ;
+    }
+};

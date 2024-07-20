@@ -1,0 +1,38 @@
+class Solution {
+public:
+    int majorityElement(vector<int>& nums) {
+      //the below method is using hash map, but takes more time comparitevily to the below method
+        /* unordered_map<int , int > map;
+        int ans ;
+        for(auto n : nums){
+            map[n]++ ;
+        }
+        for(auto i : map){
+            if(i.second > nums.size()/2){
+                ans = i.first ;
+            }
+        }
+        return ans; */
+
+        int count = 0, element, count1 = 0;
+        for (auto i : nums) {
+            if (count == 0) {
+                count++;
+                element = i;
+            } else if (i == element) {
+                count++;
+            } else {
+                count--;
+            }
+        }
+        for (auto i : nums) {
+            if (i == element) {
+                count1++;
+            }
+            if (count1 > nums.size() / 2) {
+                return element;
+            }
+        }
+        return -1;
+    }
+};

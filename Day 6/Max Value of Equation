@@ -1,0 +1,46 @@
+class Solution {
+public:
+  //this below code successfully runs 62/66 test case but then shows memory exceeded. To overcome that priority queue is used in the below code
+    /* int findMaxValueOfEquation(vector<vector<int>>& points, int k) {
+        vector<vector<int>> p;
+        int j;
+        for (int i = 0; i < points.size() - 1; i++) {
+            for (j = i + 1; j < points.size(); j++) {
+                if (abs(points[i][0] - points[j][0]) <= k) {
+                    p.push_back({i,j});
+                }
+                if (abs(points[i][0] - points[j][0]) > k) {
+                    break;
+                }
+            }
+        }
+        long long ans = INT_MIN;
+        for (int i = 0; i < p.size(); i++) {
+            long long ans1 =
+                        points[p[i][0]][1] + points[p[i][1]][1] +
+                        abs(points[p[i][0]][0] - points[p[i][1]][0]);
+                    ans = max(ans, ans1);
+        }
+        j = ans;
+        return j;
+    } */
+  
+
+    int findMaxValueOfEquation(vector<vector<int>>& points, int k){
+        int n = points.size();
+        int ans = INT_MIN ;
+
+        priority_queue<pair<int,int>> q;
+
+        for(int i=0 ; i<n;i++){
+            while(!q.empty() && points[i][0] - q.top().second >k){
+                q.pop() ;
+            }
+            if( !q.empty()){
+                ans = max(ans ,(q.top().first + points[i][0] + points[i][1]));
+            }
+            q.push({points[i][1]-points[i][0] , points[i][0]});
+        }
+        return ans ;
+    }
+};

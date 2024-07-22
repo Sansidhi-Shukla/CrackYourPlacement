@@ -1,0 +1,21 @@
+class Solution {
+public:
+    string convertToTitle(int columnNumber) {
+        string ans, ans1;
+        while (columnNumber > 0) {
+            int n = columnNumber % 26;
+            if (n == 0) {
+                ans1.push_back('Z');
+                columnNumber -= 26 ;
+            } else {
+                ans1.push_back(char(n + 64));
+            }
+            
+            columnNumber /= 26;
+        }
+        for (int j = ans1.length() - 1; j >= 0; j--) {
+            ans.push_back(ans1[j]);
+        }
+        return ans;
+    }
+};

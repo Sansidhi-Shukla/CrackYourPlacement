@@ -1,1 +1,45 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    //we have to check the repetition of address not value as value can be repeted without even it being a loop
 
+    //easy way using map. Better approach is by using slow and fast approach
+   /*  bool hasCycle(ListNode *head) {
+        map<ListNode* , bool> map;
+        ListNode* temp = head;
+        while(temp != NULL){
+            if(map[temp]==false){
+                map[temp]=true ;
+                temp=temp->next;
+            }
+            else{
+                return true;
+            }
+        }
+        return false;
+    } */
+
+    // a better spproach as it is faster and uses slow and fast approach
+    bool hasCycle(ListNode *head) {
+        ListNode* slow = head;
+        ListNode* fast = head;
+        while(fast != NULL){
+            fast = fast->next;
+            if(fast != NULL){
+                fast = fast->next;
+                slow = slow->next;
+            }
+            if(slow == fast){
+                return true;
+            }
+        }
+        return false;
+    }
+};

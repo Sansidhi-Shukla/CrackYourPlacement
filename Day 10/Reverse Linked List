@@ -11,15 +11,17 @@
 class Solution {
 public:
 
-    int length(ListNode* head){
-        ListNode *temp = head;
-        int l  =0 ;
-        while(temp != nullptr){
-            l++;
-            temp = temp->next ;
+    //solution using recursion
+    /*ListNode* recursion(ListNode*prev , ListNode* curr ){
+        if(curr== NULL){
+            return prev;
         }
-        return l ;
-    }
+        ListNode* next = curr->next;
+        curr->next = prev;
+        prev = curr ;
+        curr = next ;
+        return recursion(prev , curr);
+    }*/
 
     ListNode* reverseList(ListNode* head) {
         ListNode *curr = head;
@@ -34,5 +36,6 @@ public:
         }
         head = prev;
         return head ;
+        //return recursion(prev,curr);
     }
 };

@@ -1,1 +1,73 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    int length(ListNode* head) {
+        ListNode* temp = head;
+        int l = 0;
+        while (temp != NULL) {
+            temp = temp->next;
+            l++;
+        }
+        return l;
+    }
 
+    ListNode* deleteList(ListNode* head, int p) {
+        ListNode* temp = head;
+        ListNode* prev = NULL;
+        if (head == NULL) {
+            return head;
+        }
+        int l = length(head);
+        if (p == 1) {
+            head = temp->next;
+            temp->next = NULL;
+            delete temp; /*
+             return head; */
+        } 
+        else if (p == l) {
+            while (temp->next != NULL) {
+                prev = temp;
+                temp = temp->next;
+            }
+            prev->next = NULL;
+            delete temp;
+        } 
+        else {
+            while (p != 1) {
+                prev = temp;
+                temp = temp->next;
+                p--;
+            }
+            prev->next = temp->next;
+            temp->next = NULL;
+            delete temp;
+        }
+        return prev;
+    }
+    ListNode* deleteDuplicates(ListNode* head) {
+        int i = 1;
+        int prev = -1000;
+        ListNode* temp = head;
+        while (temp != NULL) {
+            if (prev == temp->val) {
+               ListNode* p = deleteList(head, i);
+               temp = p->next ;
+            } 
+            else {
+                prev = temp->val;
+                temp = temp->next;
+                i++ ;
+            }
+        }
+        return head;
+    }
+};

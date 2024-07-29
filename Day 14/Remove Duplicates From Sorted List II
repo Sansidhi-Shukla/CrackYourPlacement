@@ -1,1 +1,93 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* deleteDuplicates(ListNode* head) {
+        int i = 1;
+        int prev = -1000;
+        bool t = false;
+        ListNode* p = NULL;
+        ListNode* temp = head;
+        while (temp != NULL) {
+            if (prev == temp->val) {
+                p = deleteList(head, i);
+                temp = p->next;
+                t = true;
+            } else {
+                if (t == true) {
+                    p = deleteList(head, --i);
+                    if (i == 1) {
+                        head = p;
+                        temp = p;
+                    } else {
+                        temp = p->next;
+                    }
+                }
+                prev = temp->val;
+                temp = temp->next;
+                i++;
+                t = false;
+            }
+        }
+        if (t == true) {
+            p = deleteList(head, --i);
+            if (i == 1) {
+                head = p;
+                temp = p;
+            } else {
+                temp = p->next;
+            }
+        }
+        return head;
+    }
 
+    int length(ListNode* head) {
+        ListNode* temp = head;
+        int l = 0;
+        while (temp != NULL) {
+            temp = temp->next;
+            l++;
+        }
+        return l;
+    }
+
+    ListNode* deleteList(ListNode* head, int p) {
+        ListNode* temp = head;
+        ListNode* prev = NULL;
+        if (head == NULL) {
+            return head;
+        }
+        int l = length(head);
+        if (p == 1) {
+            head = temp->next;
+            temp->next = NULL;
+            delete temp;
+            return head;
+        } else if (p == l) {
+            while (temp->next != NULL) {
+                prev = temp;
+                temp = temp->next;
+            }
+            prev->next = NULL;
+            delete temp;
+        } else {
+            while (p != 1) {
+                prev = temp;
+                temp = temp->next;
+                p--;
+            }
+            prev->next = temp->next;
+            temp->next = NULL;
+            delete temp;
+        }
+        return prev;
+    }
+};
